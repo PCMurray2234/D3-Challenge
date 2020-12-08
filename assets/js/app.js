@@ -5,8 +5,7 @@ var height = width * .66;
 var svg = d3.select('#scatter')
     .append('svg')
     .style('height', height)
-    .style('width', width)
-    .style('border', '2px solid black');
+    .style('width', width);
 // append group
 var xText = svg.append('g').attr('transform', `translate(${width / 2},${height})`);
 
@@ -63,6 +62,7 @@ var xAxis = svg.append('g').attr('transform', `translate(${width*.12},${height*.
 var circles = svg.append('g').attr('transform', `translate(${width*.12},${height*.10})`);;
 
 function showData() {
+    d3.select('#scatter').empty();
 
     d3.csv('assets/data/data.csv').then(csvData => {
         data = csvData;
@@ -91,9 +91,15 @@ function showData() {
     });
 };
 
-// browser loads, makeResponsive() is called
-makeResponsive();
+d3.selectAll('.inactive').on('click', function () {
 
-// browser window loads and is resized, makeResponsive() is called
-d3.select(window).on("resize", makeResponsive);
+       var thisAxis = d3.select(this);
+// if else statement that will change active class
+    thisAxis.classed('x')
+        ? d3.selectAll('.x').filter('.active').classed('active',false).classed('inactive',true)
+        : d3.selectAll('.y').filter('.active').classed('active',false).classed('inactive',true);
+    thisAxis.classed('inactive',false).classed('active',true);
+
+    // showData();
+});
 

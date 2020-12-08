@@ -1,17 +1,17 @@
-
+// load chart
 var width = parseFloat(d3.select('#scatter').style('width'));
 var height = width * .66;
-
+//append svg 
 var svg = d3.select('#scatter')
     .append('svg')
     .style('height', height)
     .style('width', width)
     .style('border', '2px solid black');
-
+// append group
 var xText = svg.append('g').attr('transform', `translate(${width / 2},${height})`);
 
 showData();
-
+// creat lables
 xText
     .append('text')
     .text('Household Income (Median)')
@@ -56,7 +56,7 @@ yText
     .attr('axisInfo', 'healthcare')
     .attr('class', 'aText inactive y')
     .attr('y', 60);
-
+// create axes and append
 var yAxis = svg.append('g').attr('transform', `translate(${width*.12},${height*.03})`);
 var xAxis = svg.append('g').attr('transform', `translate(${width*.12},${height*.83})`);
 
@@ -90,3 +90,10 @@ function showData() {
 
     });
 };
+
+// browser loads, makeResponsive() is called
+makeResponsive();
+
+// browser window loads and is resized, makeResponsive() is called
+d3.select(window).on("resize", makeResponsive);
+
